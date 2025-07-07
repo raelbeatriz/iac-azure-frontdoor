@@ -6,6 +6,7 @@ data "azurerm_cdn_frontdoor_profile" "afd" {
 resource "azurerm_cdn_frontdoor_endpoint" "afde" {
   name                     = local.afde_name
   cdn_frontdoor_profile_id = data.azurerm_cdn_frontdoor_profile.afd.id
+  enabled                  = false #remove/comment/true during switch
 
   depends_on = [data.azurerm_cdn_frontdoor_profile.afd]
 }
@@ -14,7 +15,6 @@ resource "azurerm_cdn_frontdoor_endpoint" "afde" {
 resource "azurerm_cdn_frontdoor_endpoint" "afde-placeholder" {
   name                     = local.afde_name_placeholder
   cdn_frontdoor_profile_id = data.azurerm_cdn_frontdoor_profile.afd.id
-  enabled                  = false #switched
 
   depends_on = [data.azurerm_cdn_frontdoor_profile.afd]
 }
@@ -139,6 +139,7 @@ resource "azurerm_cdn_frontdoor_route" "afdr" {
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.afde.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.afdog[each.key].id
   cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.afdo[each.key].id]
+  enabled                       = false #remove/comment/true during switch
 
   supported_protocols    = local.afdr_supported_protocols
   patterns_to_match      = local.afdr_patterns_to_match
@@ -158,7 +159,6 @@ resource "azurerm_cdn_frontdoor_route" "afdr_placeholder" {
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.afde-placeholder.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.afdog_placeholder[each.key].id
   cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.afdo_placeholder[each.key].id]
-  enabled                       = false #switched
 
   supported_protocols    = local.afdr_supported_protocols
   patterns_to_match      = local.afdr_patterns_to_match
