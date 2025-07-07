@@ -37,7 +37,7 @@ locals {
   # Key Vault
   kv_name                 = "azweuglkvdevdxpcore"          #
   kv_resource_group_name  = "az-weu-gl-rg-dev-dxp-core-01" #
-  kv_ssl_certificate_name = " " #
+  kv_ssl_certificate_name = "wildcard-inchcapedigital-com" #
 
   # Azure Front Door
   afd_name                        = "az-weu-gl-fd-dev-dxp-core-01"                        #
